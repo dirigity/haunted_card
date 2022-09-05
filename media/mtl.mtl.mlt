@@ -1,0 +1,105 @@
+<?xml version="1.0" standalone="no"?>
+<mlt LC_NUMERIC="C" version="6.25.0" title="Shotcut version 21.03.21" producer="main_bin">
+  <profile description="PAL 4:3 DV or DVD" width="1920" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="1920" display_aspect_den="1920" frame_rate_num="60000" frame_rate_den="1000" colorspace="709"/>
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="00:00:04.900">
+    <property name="length">00:00:04.917</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgb24a</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="00:00:04.900"/>
+  </playlist>
+  <producer id="producer1" title="Shotcut version 21.03.21" in="00:00:00.000" out="00:00:08.667">
+    <property name="length">00:00:08.708</property>
+    <property name="eof">pause</property>
+    <property name="resource">video_2022-09-04_13-53-11 - Converted.mkv</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="aspect_ratio">1</property>
+    <property name="creation_time">2022-09-04T10:42:00</property>
+    <property name="shotcut:hash">c28de35360a80fbeb3a82b4974d97bd2</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">video_2022-09-04_13-53-11 - Converted.mkv</property>
+    <property name="global_feed">1</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:projectAudioChannels">1</property>
+    <property name="shotcut:projectFolder">0</property>
+    <filter id="filter0" in="00:00:00.933" out="00:00:05.833">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">-792.315 -30.0645 3542.25 1992.52 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+    <filter id="filter1" in="00:00:00.933" out="00:00:05.833">
+      <property name="filename">stab.stab</property>
+      <property name="shakiness">1</property>
+      <property name="accuracy">15</property>
+      <property name="stepsize">6</property>
+      <property name="algo">1</property>
+      <property name="mincontrast">0.3</property>
+      <property name="show">0</property>
+      <property name="tripod">0</property>
+      <property name="smoothing">100</property>
+      <property name="maxshift">-1</property>
+      <property name="maxangle">-1</property>
+      <property name="crop">0</property>
+      <property name="invert">0</property>
+      <property name="relative">1</property>
+      <property name="zoom">6.2</property>
+      <property name="optzoom">1</property>
+      <property name="zoomspeed">0.25</property>
+      <property name="reload">0</property>
+      <property name="vid.stab.version">v1.1 (2015-05-16)</property>
+      <property name="mlt_service">vidstab</property>
+      <property name="analyze">0</property>
+      <property name="results">stab.stab</property>
+      <property name="disable">0</property>
+      <property name="refresh">1</property>
+    </filter>
+  </producer>
+  <playlist id="playlist0">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V1</property>
+    <entry producer="producer1" in="00:00:00.933" out="00:00:05.833"/>
+  </playlist>
+  <tractor id="tractor0" title="Shotcut version 21.03.21" global_feed="1" in="00:00:00.000" out="00:00:04.900">
+    <property name="shotcut">1</property>
+    <property name="shotcut:scaleFactor">4.40979</property>
+    <property name="shotcut:projectAudioChannels">1</property>
+    <property name="shotcut:projectFolder">0</property>
+    <track producer="background"/>
+    <track producer="playlist0" hide="audio"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition1">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="version">0.9</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">1</property>
+    </transition>
+  </tractor>
+</mlt>
