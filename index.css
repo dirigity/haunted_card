@@ -7,6 +7,7 @@ body {
 }
 
 card {
+    z-index: -100;
     text-align: left;
     background: white;
     border-radius: 0 40px 40px 0;
@@ -15,6 +16,7 @@ card {
     width: fit-content;
     height: fit-content;
     padding-left: 70px;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.41);
 }
 
 v_flex {
@@ -33,7 +35,9 @@ v_flex {
 }
 
 #placeholder {
+     transition: all 0.5s; 
     z-index: 100;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.41);
 }
 
 .photo_holder {

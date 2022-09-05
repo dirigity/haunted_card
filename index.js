@@ -13,6 +13,7 @@ const refresh_rate = 20 //ms
 
 const _max_frame_jump = 10;
 
+
 function pad(num, size) {
     var s = num + "";
     while (s.length < size) s = "0" + s;
@@ -28,7 +29,7 @@ const photo = (id) => {
 const placeholder = document.getElementById("placeholder");
 
 let showed_frame = null;
-function set_frame(f) {
+async function set_frame(f) {
     if (f == showed_frame) return
     photo(f).style.zIndex = 10;
     if (showed_frame) {
@@ -36,6 +37,8 @@ function set_frame(f) {
     }
     // console.log(f)
     showed_frame = f;
+
+    await new Promise((r) => requestAnimationFrame(r))
 }
 
 function mouse_move(e) {
@@ -59,6 +62,7 @@ function mouse_move(e) {
     if (d < 100 || a > max_angle || a < min_angle) {
         if (goal_sight <= 0.5) goal_sight = 0
         else goal_sight = 1
+
     } else {
         goal_sight = 1 - (a - min_angle) / (max_angle - min_angle)
     }
@@ -67,7 +71,12 @@ function mouse_move(e) {
 
 let goal_sight = 1;
 
-function tick() {
+async function tick() {
+    if (goal_sight == 0 || goal_sight == 1) {
+        // placeholder.style.boxShadow = "0px 0px 50px 0px rgba(0, 0, 0, 0.41)"
+    }else{
+        // placeholder.style.boxShadow = "0px 0px 3000px 3000px rgba(0, 0, 0, 0.41)"
+    }
     let goal_frame = start_frame;
     if (goal_sight == 0)
         goal_frame = start_frame
@@ -78,19 +87,27 @@ function tick() {
         let t = goal_sight;
         goal_frame = min_frame + t * (max_frame - min_frame);
     }
+
     let new_frame = Math.round(showed_frame + Math.max(-_max_frame_jump, Math.min(_max_frame_jump, (goal_frame - showed_frame) * speed)))
-    set_frame(new_frame)
+    await set_frame(new_frame)
     setTimeout(tick, refresh_rate);
 }
 
 
 document.addEventListener("mousemove", mouse_move);
 
-Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
-    setTimeout(() => {
-        console.log("everything loaded")
-        tick();
-        placeholder.style.zIndex = -1
-    }, 4000)
+Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(async () => {
+
+    console.log("everything loaded")
+    for (let i = start_frame; i <= end_frame; i++) {
+        await set_frame(i)
+        console.log(i)
+    }
+
+    set_frame(start_frame)
+    goal_sight = 0;
+    tick();
+
+    placeholder.style.zIndex = -1
 
 }); 
